@@ -75,32 +75,39 @@ app.post("/api/bookings", async (req, res) => {
 
     const booking = new Booking(req.body);
 
-    await booking.save();
+await booking.save();
 
-const info = await transporter.sendMail({
-  from: '"Parth Portfolio" <vishnupriyagouda@gmail.com>',
-  to: "goudaparth07@gmail.com",
-  subject: "🚀 New Portfolio Booking",
-  html: `
-    <h2>New Booking Received</h2>
+try {
 
-    <p><strong>Name:</strong> ${booking.name}</p>
-    <p><strong>Email:</strong> ${booking.email}</p>
-    <p><strong>Phone:</strong> ${booking.phone}</p>
-    <p><strong>Service:</strong> ${booking.service}</p>
-    <p><strong>Budget:</strong> ${booking.budget}</p>
-    <p><strong>Deadline:</strong> ${booking.deadline}</p>
-    <p><strong>Description:</strong> ${booking.description}</p>
-  `
+  await transporter.sendMail({
+    from: '"Parth Portfolio" <vishnupriyagouda@gmail.com>',
+    to: 'goudaparth07@gmail.com',
+    subject: '🚀 New Portfolio Booking',
+    html: `
+      <h2>New Booking Received</h2>
+      <p><strong>Name:</strong> ${booking.name}</p>
+      <p><strong>Email:</strong> ${booking.email}</p>
+      <p><strong>Phone:</strong> ${booking.phone}</p>
+      <p><strong>Service:</strong> ${booking.service}</p>
+      <p><strong>Budget:</strong> ${booking.budget}</p>
+      <p><strong>Deadline:</strong> ${booking.deadline}</p>
+      <p><strong>Description:</strong> ${booking.description}</p>
+    `
+  });
+
+  console.log("MAIL SENT ✅");
+
+} catch (mailError) {
+
+  console.log("MAIL FAILED ❌");
+  console.log(mailError);
+
+}
+
+res.status(201).json({
+  success: true,
+  message: "Booking Saved Successfully"
 });
-
-console.log("MAIL SENT ✅");
-console.log(info);
-
-    res.status(201).json({
-      success: true,
-      message: "Booking Saved Successfully"
-    });
 
   } catch (error) {
 
