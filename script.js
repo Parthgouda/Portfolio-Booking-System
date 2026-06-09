@@ -17,7 +17,7 @@ form.addEventListener("submit", async (e) => {
   try {
 
     const response = await fetch(
-      "http://https://portfolio-booking-system-ltuq.onrender.com/api/bookings",
+      "https://portfolio-booking-system-ltuq.onrender.com/api/bookings",
       {
         method: "POST",
         headers: {
