@@ -193,7 +193,7 @@ async function loadBookings(){
 
     const response =
     await fetch(
-      "http://localhost:5000/api/bookings"
+      "http://https://portfolio-booking-system-ltuq.onrender.com/api/bookings"
     );
 
     const bookings =
@@ -419,7 +419,7 @@ async function updateStatus(
 ){
 
   await fetch(
-    `http://localhost:5000/api/bookings/${id}`,
+    `http://https://portfolio-booking-system-ltuq.onrender.com/api/bookings/${id}`,
     {
       method:"PUT",
 
@@ -452,7 +452,7 @@ async function deleteBooking(id){
   if(!confirmDelete) return;
 
   await fetch(
-    `http://localhost:5000/api/bookings/${id}`,
+    `http://https://portfolio-booking-system-ltuq.onrender.com/api/bookings/${id}`,
     {
       method:"DELETE"
     }
