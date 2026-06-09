@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<section class="booking">
+
+  <h2 class="section-title">
+    Bookings Dashboard
+  </h2>
+
+  <!-- Stats Cards -->
+
+  <div class="stats-container">
+
+    <div class="stat-card">
+      <h3>Total</h3>
+      <p id="totalBookings">0</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Pending</h3>
+      <p id="pendingBookings">0</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>In Progress</h3>
+      <p id="progressBookings">0</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Completed</h3>
+      <p id="completedBookings">0</p>
+    </div>
+
+   <div class="stat-card">
+  <h3>Total Revenue</h3>
+  <p id="totalRevenue">₹0</p>
+</div>
+
+<div class="stat-card">
+  <h3>Completed Revenue</h3>
+  <p id="completedRevenue">₹0</p>
+</div>
+
+<div class="stat-card">
+  <h3>Pending Revenue</h3>
+  <p id="pendingRevenue">₹0</p>
+</div>
+
+  </div>
+
+  <!-- Charts -->
+
+  <div class="charts-container">
+
+    <div class="chart-card">
+      <h3>Booking Status</h3>
+      <canvas id="statusChart"></canvas>
+    </div>
+
+    <div class="chart-card">
+      <h3>Bookings Overview</h3>
+      <canvas id="bookingChart"></canvas>
+    </div>
+
+  </div>
+
+  <!-- Monthly Chart -->
+
+  <div class="chart-card monthly-chart">
+
+    <h3>Monthly Bookings</h3>
+
+    <canvas id="monthlyChart"></canvas>
+
+  </div>
+
+  <!-- Action Buttons -->
+
+  <div class="dashboard-actions">
+
+    <button onclick="exportCSV()">
+      Export CSV
+    </button>
+
+    <button onclick="exportExcel()">
+      Export Excel
+    </button>
+
+    <button onclick="logout()">
+      Logout
+    </button>
+
+  </div>
+
+  <!-- Search + Filter -->
+
+  <div class="filters">
+
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search by name, email or service..."
+    >
+
+    <select id="statusFilter">
+
+      <option value="All">
+        All Status
+      </option>
+
+      <option value="Pending">
+        Pending
+      </option>
+
+      <option value="In Progress">
+        In Progress
+      </option>
+
+      <option value="Completed">
+        Completed
+      </option>
+
+    </select>
+
+  </div>
+
+  <!-- Booking List -->
+
+  <div id="bookingList"></div>
+
+</section>
+
+<!-- Chart.js -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Admin JS -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<script src="admin.js"></script>
+
+</body>
+</html>
