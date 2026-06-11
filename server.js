@@ -30,20 +30,17 @@ SMTP Setup
 ========================= */
 
 const transporter = nodemailer.createTransport({
-host: process.env.SMTP_HOST,
-port: Number(process.env.SMTP_PORT),
-secure: false,
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.SMTP_PORT),
+  secure: false,
+  requireTLS: true,
 
-auth: {
-user: process.env.SMTP_USER,
-pass: process.env.SMTP_PASS
-},
-
-connectionTimeout: 10000,
-greetingTimeout: 10000,
-socketTimeout: 10000
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS
+  }
 });
-
+/*
 transporter.verify((error) => {
 if (error) {
 console.log("SMTP ERROR ❌");
@@ -52,6 +49,7 @@ console.log(error);
 console.log("SMTP READY ✅");
 }
 });
+*/
 
 console.log("SMTP_HOST =", process.env.SMTP_HOST);
 console.log("SMTP_PORT =", process.env.SMTP_PORT);
