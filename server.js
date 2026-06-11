@@ -93,52 +93,67 @@ Create Booking
 ========================= */
 
 app.post("/api/bookings", async (req, res) => {
-try {
-const booking = new Booking(req.body);
 
+  try {
 
-await booking.save();
+    const booking = new Booking(req.body);
 
-res.status(201).json({
-  success: true,
-  message: "Booking Saved Successfully"
+    await booking.save();
+
+    console.log("BOOKING SAVED ✅");
+
+    res.status(201).json({
+      success: true,
+      message: "Booking Saved Successfully"
+    });
+
+    try {
+
+      console.log("TRYING TO SEND EMAIL...");
+
+      await transporter.sendMail({
+
+        from: process.env.SMTP_USER,
+
+        to: "goudaparth07@gmail.com",
+
+        subject: "🚀 New Portfolio Booking",
+
+        html: `
+          <h2>New Booking Received</h2>
+
+          <p><strong>Name:</strong> ${booking.name}</p>
+          <p><strong>Email:</strong> ${booking.email}</p>
+          <p><strong>Phone:</strong> ${booking.phone}</p>
+          <p><strong>Service:</strong> ${booking.service}</p>
+          <p><strong>Budget:</strong> ${booking.budget}</p>
+          <p><strong>Deadline:</strong> ${booking.deadline}</p>
+          <p><strong>Description:</strong> ${booking.description}</p>
+        `
+
+      });
+
+      console.log("MAIL SENT ✅");
+
+    } catch (mailError) {
+
+      console.log("MAIL FAILED ❌");
+      console.log(mailError);
+
+    }
+
+  } catch (error) {
+
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+
+  }
+
 });
-
-transporter
-  .sendMail({
-    from: `"Parth Portfolio" <${process.env.SMTP_USER}>`,
-    to: "goudaparth07@gmail.com",
-    subject: "🚀 New Portfolio Booking",
-
-    html: `
-      <h2>New Booking Received</h2>
-
-      <p><strong>Name:</strong> ${booking.name}</p>
-      <p><strong>Email:</strong> ${booking.email}</p>
-      <p><strong>Phone:</strong> ${booking.phone}</p>
-      <p><strong>Service:</strong> ${booking.service}</p>
-      <p><strong>Budget:</strong> ${booking.budget}</p>
-      <p><strong>Deadline:</strong> ${booking.deadline}</p>
-      <p><strong>Description:</strong> ${booking.description}</p>
-    `
-  })
-  .then(() => {
-    console.log("MAIL SENT ✅");
-  })
-  .catch((err) => {
-    console.log("MAIL FAILED ❌");
-    console.log(err);
-  });
-
-
-} catch (error) {
-res.status(500).json({
-success: false,
-message: error.message
-});
-}
-});
-
 /* =========================
 Update Booking Status
 ========================= */
