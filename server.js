@@ -30,10 +30,9 @@ SMTP Setup
 ========================= */
 
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT),
-  secure: false,
-  requireTLS: true,
+  host: "smtp-relay.brevo.com",
+  port: 465,
+  secure: true,
 
   auth: {
     user: process.env.SMTP_USER,
